@@ -5,16 +5,16 @@
 <script lang="ts" setup>
 
 import {onMounted, onUnmounted} from "vue";
-import {Color3, Engine, MeshBuilder, PBRMaterial, Scene} from "@babylonjs/core";
+import {Engine, MeshBuilder, PBRMaterial, Scene} from "@babylonjs/core";
 import {LottieTexture} from "babylonjs-lottie";
 
 async function createScene(scene: Scene) {
 
     let box = MeshBuilder.CreateBox("box")
     let mat = new PBRMaterial("pbr", scene)
-    let lottie = await LottieTexture.LoadFromUrl("", "/Aniki Hamster.json", scene)
-    mat.albedoColor = Color3.White()
-    mat.albedoTexture = lottie
+    let lottieTexture = await LottieTexture.LoadFromUrlAsync("", "/Aniki Hamster.json", scene)
+    lottieTexture.lottieAnim?.pause()
+    mat.albedoTexture = lottieTexture
     box.material = mat
     mat.unlit = true
 

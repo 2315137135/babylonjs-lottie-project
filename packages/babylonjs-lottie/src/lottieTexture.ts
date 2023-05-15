@@ -1,4 +1,4 @@
-import {DynamicTexture, HtmlElementTexture, NodeMaterial, Scene, Texture, Tools} from "@babylonjs/core";
+import {HtmlElementTexture, Scene, Tools} from "@babylonjs/core";
 import Lottie, {AnimationItem} from "lottie-web";
 
 
@@ -19,7 +19,7 @@ const defaultOption: LottieOption = {
 export class LottieTexture extends HtmlElementTexture {
     lottieAnim?: AnimationItem
 
-    static async LoadFromUrl(name: string, url: string, scene: Scene, inOption: Partial<LottieOption> = {}) {
+    static async LoadFromUrlAsync(name: string, url: string, scene: Scene, inOption: Partial<LottieOption> = {}) {
         let option: LottieOption = {...defaultOption, ...inOption}
 
         let container = document.createElement("div")

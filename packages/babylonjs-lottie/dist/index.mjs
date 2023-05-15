@@ -52,7 +52,7 @@ var LottieTexture = class extends HtmlElementTexture {
     super(...arguments);
     __publicField(this, "lottieAnim");
   }
-  static LoadFromUrl(_0, _1, _2) {
+  static LoadFromUrlAsync(_0, _1, _2) {
     return __async(this, arguments, function* (name, url, scene, inOption = {}) {
       let option = __spreadValues(__spreadValues({}, defaultOption), inOption);
       let container = document.createElement("div");
