@@ -1,0 +1,25 @@
+{
+  "name": "babylonjs-lottie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babylonjs/core": "^6.3.1",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "lottie-web": "^5.11.0"
+  },
+  "peerDependencies": {
+    "@babylonjs/core": "^6.3.1"
+  }
+}
