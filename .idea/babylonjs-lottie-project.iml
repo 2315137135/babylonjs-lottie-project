@@ -5,8 +5,13 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/example/.netlify" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/example/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/babylonjs-lottie/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="babylon" level="application" />
+    <orderEntry type="library" name="index" level="application" />
   </component>
 </module>

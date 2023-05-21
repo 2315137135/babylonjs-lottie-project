@@ -3,15 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babylonjs/inspector": "^6.4.1",
     "@babylonjs/core": "^6.3.1",
-    "babylonjs-lottie": "workspace:*",
+    "babylonjs-lottie": "^1.2.1",
     "vue": "^3.2.47"
   },
   "devDependencies": {

@@ -1,34 +1,55 @@
-import {HtmlElementTexture, Scene, Tools} from "@babylonjs/core";
 import Lottie, {AnimationItem} from "lottie-web";
-
+import * as BABYLON from "@babylonjs/core"
+import {Engine, Scene, Texture} from "@babylonjs/core"
 
 interface LottieOption {
+    loop: boolean | number;
+    useAnimeSize: boolean
     width: number
     height: number
-    useDataSize: boolean
-
+    invertY: boolean;
+    generateMipMaps: boolean
+    samplingMode: number
+    format: number;
+    autoPlay: boolean
 }
 
 const defaultOption: LottieOption = {
+    loop: true,
+    autoPlay: true,
+    useAnimeSize: false,
     width: 512,
     height: 512,
-    useDataSize: false
+    invertY: false,
+    generateMipMaps: false,
+    samplingMode: Texture.TRILINEAR_SAMPLINGMODE,
+    format: Engine.TEXTUREFORMAT_RGBA
 }
 
+export class LottieTexture extends BABYLON.DynamicTexture {
+    lottieAnimation: AnimationItem
 
-export class LottieTexture extends HtmlElementTexture {
-    lottieAnim?: AnimationItem
+    static async LoadFromUrlAsync(name: string, url: string, scene: BABYLON.Scene, inOption: Partial<LottieOption> = {}) {
+        let raw = await BABYLON.Tools.LoadFileAsync(url, false) as string
+        return this.ParseFromJson(name, raw, scene, inOption)
+    }
 
-    static async LoadFromUrlAsync(name: string, url: string, scene: Scene, inOption: Partial<LottieOption> = {}) {
+    static async ParseFromUrlAsync(name: string, url: string, scene: BABYLON.Scene, inOption: Partial<LottieOption> = {}) {
+        let raw = await BABYLON.Tools.LoadFileAsync(url, false) as string
+        return this.ParseFromJson(name, raw, scene, inOption)
+    }
+
+    static ParseFromJson(name: string, json: string, scene: Scene, inOption: Partial<LottieOption> = {}) {
+        let data = JSON.parse(json)
+        return this.ParseFromObject(name, data, scene, inOption)
+    }
+
+    static ParseFromObject(name: string, data: any, scene: Scene, inOption: Partial<LottieOption> = {}) {
         let option: LottieOption = {...defaultOption, ...inOption}
-
         let container = document.createElement("div")
-        let raw = await Tools.LoadFileAsync(url, false) as string
-        let data = JSON.parse(raw)
         container.style.position = "absolute"
-        container.style.zIndex = "-10000"
         let w = 128, h = 128
-        if (option.useDataSize) {
+        if (option.useAnimeSize) {
             w = data.w
             h = data.h
         } else {
@@ -38,30 +59,39 @@ export class LottieTexture extends HtmlElementTexture {
         container.style.width = w + "px"
         container.style.height = h + "px"
         document.body.append(container)
-
-        let lottieAnim = Lottie.loadAnimation({
+        let lottieAnimation = Lottie.loadAnimation({
             container,
             renderer: "canvas",
-            autoplay: true,
-            loop: true,
+            autoplay: option.autoPlay,
+            loop: option.loop,
             animationData: data,
         })
-        let canvas = lottieAnim.renderer.canvasContext.canvas
-        let texture = new LottieTexture(name, canvas, {scene: scene, engine: scene.getEngine()})
-        texture.lottieAnim = lottieAnim
-        lottieAnim.hide()
-
-        lottieAnim.addEventListener("enterFrame", args => {
-            texture.update()
-        })
+        container.style.display = "none"
+        let canvas = lottieAnimation.renderer.canvasContext.canvas
+        let texture = new LottieTexture(name, canvas, scene,
+            option.generateMipMaps,
+            option.samplingMode,
+            option.format,
+            option.invertY)
+        texture.setupLottieAnima(lottieAnimation)
         return texture
     }
 
-    public dispose() {
+    dispose() {
         super.dispose();
         //@ts-ignore
-        (this.lottieAnim.container as HTMLElement).parentElement.remove()
-        this.lottieAnim.destroy()
-        this.lottieAnim = null
+        (this.lottieAnimation.container as HTMLElement).parentElement.remove()
+        this.lottieAnimation.destroy()
+        this.lottieAnimation = null
     }
+
+    private setupLottieAnima(lottieAnim: AnimationItem) {
+        this.lottieAnimation = lottieAnim
+        this.lottieAnimation.addEventListener("enterFrame", args => {
+            this.update()
+        })
+        this.update()
+    }
+
 }
+
