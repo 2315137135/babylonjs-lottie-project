@@ -1,6 +1,5 @@
 import Lottie, {AnimationItem} from "lottie-web";
-import * as BABYLON from "@babylonjs/core"
-import {Engine, Scene, Texture} from "@babylonjs/core"
+import {DynamicTexture, Engine, Scene, Texture, Tools} from "@babylonjs/core"
 
 interface LottieOption {
     loop: boolean | number;
@@ -26,16 +25,16 @@ const defaultOption: LottieOption = {
     format: Engine.TEXTUREFORMAT_RGBA
 }
 
-export class LottieTexture extends BABYLON.DynamicTexture {
+export class LottieTexture extends DynamicTexture {
     lottieAnimation: AnimationItem
 
-    static async LoadFromUrlAsync(name: string, url: string, scene: BABYLON.Scene, inOption: Partial<LottieOption> = {}) {
-        let raw = await BABYLON.Tools.LoadFileAsync(url, false) as string
+    static async LoadFromUrlAsync(name: string, url: string, scene: Scene, inOption: Partial<LottieOption> = {}) {
+        let raw = await Tools.LoadFileAsync(url, false) as string
         return this.ParseFromJson(name, raw, scene, inOption)
     }
 
-    static async ParseFromUrlAsync(name: string, url: string, scene: BABYLON.Scene, inOption: Partial<LottieOption> = {}) {
-        let raw = await BABYLON.Tools.LoadFileAsync(url, false) as string
+    static async ParseFromUrlAsync(name: string, url: string, scene: Scene, inOption: Partial<LottieOption> = {}) {
+        let raw = await Tools.LoadFileAsync(url, false) as string
         return this.ParseFromJson(name, raw, scene, inOption)
     }
 

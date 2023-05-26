@@ -1,14 +1,14 @@
 {
   "name": "babylonjs-lottie",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index.es.js",
+  "module": "dist/index.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts"
     }
   },
@@ -17,11 +17,11 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vite build",
+    "build": "vite build --watch",
     "build2": "tsup",
     "build3": "unbuild",
     "dev": "tsup --watch",
-    "publish": "npm publish"
+    "publishNpm": "npm publish"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +32,8 @@
     "typescript": "^5.0.2",
     "unbuild": "^1.2.1",
     "vite": "^4.3.2",
-    "vite-plugin-build": "^0.9.0"
+    "vite-plugin-build": "^0.9.0",
+    "vite-plugin-dts": "^2.3.0"
   },
   "dependencies": {
     "lottie-web": "^5.11.0"
