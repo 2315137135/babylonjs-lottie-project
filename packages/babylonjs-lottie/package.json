@@ -15,6 +15,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2315137135/babylonjs-lottie-project"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "vite build --watch",
@@ -27,7 +31,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babylonjs/core": "^6.3.1",
+    "@babylonjs/core": ">=6.3.1",
     "tsup": "^6.7.0",
     "typescript": "^5.0.2",
     "unbuild": "^1.2.1",
@@ -39,6 +43,6 @@
     "lottie-web": "^5.11.0"
   },
   "peerDependencies": {
-    "@babylonjs/core": "^6.0.0"
+    "@babylonjs/core": ">=6.0.0"
   }
 }
